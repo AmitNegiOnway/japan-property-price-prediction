@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 japan-houses-prediction
 ==============================
 
@@ -55,3 +56,7 @@ Project Organization
 --------
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+=======
+# japan-property-price-prediction
+End‑to‑end machine learning project for Japanese real‑estate valuation: feature engineering, model selection, and deployment‑ready pipeline
+>>>>>>> 93f4d4b30651bd008be34867d482f353f3531d0d
