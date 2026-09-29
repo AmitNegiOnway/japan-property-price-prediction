@@ -154,19 +154,35 @@ X_test_transformed = full_pipeline.transform(X_test)
 print(X_train_transformed.shape)
 feature_names =full_pipeline.get_feature_names_out()  
 
-X_train_transformed_df = pd.DataFrame(X_train_transformed, columns=feature_names, index=X_train.index)
-X_train_transformed_df.shape
+X_train_transformed_df = pd.DataFrame(
+    X_train_transformed,
+    columns=feature_names,
+    index=X_train.index
+)
 
-X_test_transformed_df = pd.DataFrame(X_test_transformed, columns=feature_names, index=X_test.index)
+X_test_transformed_df = pd.DataFrame(
+    X_test_transformed,
+    columns=feature_names,
+    index=X_test.index
+)
 
+import pickle
 
-import pickle 
-pickle.dump(full_pipeline,open('models/nihon_pipeline.pkl','wb'))
+# Create directories
+os.makedirs("./models", exist_ok=True)
+os.makedirs("./data/interim", exist_ok=True)
 
+# Save pipeline
+with open("./models/nihon_pipeline.pkl", "wb") as file:
+    pickle.dump(full_pipeline, file)
 
-data_path=os.path.join("./data/interim")
-os.makedirs(data_path,exist_ok=True)
+# Save transformed datasets
+X_train_transformed_df.to_csv(
+    "./data/interim/X_train_transformed_df.csv",
+    index=False
+)
 
-
-X_train_transformed_df.to_csv(os.path.join(data_path,'X_train_transformed_df.csv'),index=False)
-X_test_transformed_df.to_csv(os.path.join(data_path,'X_test_transformed_df.csv'),index=False)
+X_test_transformed_df.to_csv(
+    "./data/interim/X_test_transformed_df.csv",
+    index=False
+)
