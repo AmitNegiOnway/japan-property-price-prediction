@@ -12,14 +12,14 @@ from sklearn.model_selection import train_test_split
 
 
 
-def load_params(param_path:str)->dict:
-    with open(param_path,'r') as file:
-        params =yaml.safe_load(file)
+def load_paramss(params_path:str)->dict:
+    with open(params_path,'r') as file:
+        paramss =yaml.safe_load(file)
 
-    return  params   
+    return  paramss   
 
-params=load_params(param_path='param.yaml')
-test_size=params['feature_engineering']['test_size']
+paramss=load_paramss(params_path='params.yaml')
+test_size=paramss['feature_engineering']['test_size']
 
 # load df.csv
 df=pd.read_csv('./data/raw/df.csv')
@@ -161,7 +161,7 @@ X_test_transformed_df = pd.DataFrame(X_test_transformed, columns=feature_names, 
 
 
 import pickle 
-pickle.dump(full_pipeline,open('models/nihon_pipeline','wb'))
+pickle.dump(full_pipeline,open('models/nihon_pipeline.pkl','wb'))
 
 
 data_path=os.path.join("./data/interim")

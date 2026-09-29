@@ -1,0 +1,104 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/data/data_ingestion.py
+    deps:
+    - path: src/data/data_ingestion.py
+      hash: md5
+      md5: c6e1c9320bac5fb055499ea342a397bf
+      size: 678
+    outs:
+    - path: data/raw
+      hash: md5
+      md5: df1da8ef53bf4d5af5c12b52331af50f.dir
+      size: 13054513
+      nfiles: 1
+  feature_engineering:
+    cmd: python src/features/feature_engineering.py
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: df1da8ef53bf4d5af5c12b52331af50f.dir
+      size: 13054513
+      nfiles: 1
+    - path: src/features/feature_engineering.py
+      hash: md5
+      md5: d39e9e92c4e31e218ab4ad80c8e9b45c
+      size: 5638
+    params:
+      params.yaml:
+        feature_engineering.test_size: 0.3
+    outs:
+    - path: data/interim
+      hash: md5
+      md5: e8b27d4c127b6e45885c46d659e63447.dir
+      size: 1014175749
+      nfiles: 2
+    - path: models/nihon_pipeline.pkl
+      hash: md5
+      md5: bf424d827be143f5d295c6d5258115d9
+      size: 5203869
+  model_building:
+    cmd: python src/model/model_building.py
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: df1da8ef53bf4d5af5c12b52331af50f.dir
+      size: 13054513
+      nfiles: 1
+    - path: models/nihon_pipeline.pkl
+      hash: md5
+      md5: bf424d827be143f5d295c6d5258115d9
+      size: 5203869
+    - path: src/model/model_building.py
+      hash: md5
+      md5: 0633e043b0927c9324c76ba537edf360
+      size: 6395
+    outs:
+    - path: models/lgbm_model.pkl
+      hash: md5
+      md5: 8af42efe4a4a77c609ca61555eebd30d
+      size: 21376529
+  model_evaluation:
+    cmd: python src/model/model_evaluation.py
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: df1da8ef53bf4d5af5c12b52331af50f.dir
+      size: 13054513
+      nfiles: 1
+    - path: models/lgbm_model.pkl
+      hash: md5
+      md5: 8af42efe4a4a77c609ca61555eebd30d
+      size: 21376529
+    - path: src/model/model_evaluation.py
+      hash: md5
+      md5: e782ff4da220a8fc6b0510b43596602a
+      size: 5811
+    outs:
+    - path: reports/experiment_info.json
+      hash: md5
+      md5: 3ae12f069b8c7f087e8fe809ef6e3460
+      size: 67
+    - path: reports/metrics.json
+      hash: md5
+      md5: 40641c648bb554e229eeb205fedb994e
+      size: 340
+  model_registration:
+    cmd: python src/model/register_model.py
+    deps:
+    - path: reports/experiment_info.json
+      hash: md5
+      md5: 3ae12f069b8c7f087e8fe809ef6e3460
+      size: 67
+    - path: src/model/register_model.py
+      hash: md5
+      md5: 74ef784c22f36a46daffb3e70096ed45
+      size: 1795
+  model_promotion:
+    cmd: python src/model/promoted_model.py
+    deps:
+    - path: src/model/promoted_model.py
+      hash: md5
+      md5: 76caed6e88c1babf00979eb0ab18f70a
+      size: 1618
