@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 japan-houses-prediction
 ==============================
 
