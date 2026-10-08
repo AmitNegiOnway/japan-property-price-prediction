@@ -1,19 +1,14 @@
-# install python --> base layer 
-FROM python:3.10-slim 
+FROM python:3.11-slim
 
-# set our workdir 
-WORKDIR /app/
+WORKDIR /app
 
-# copy the files 
-COPY ./frontend/ .
-COPY ./fast_api/ .
+COPY frontend/requirements.txt .
 
-# install packages 
 RUN pip install --no-cache-dir -r requirements.txt
 
-# copy the dataset required 
-COPY ./data/raw/ ./data/
+COPY frontend/ .
+COPY data/ ./data/
 
-# final cmd statement --> run the container 
-CMD ["streamlit" ,"run" , "app.py"]
+EXPOSE 8501
 
+CMD ["streamlit", "run", "frontend.py", "--server.address=0.0.0.0", "--server.port=8501"]

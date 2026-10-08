@@ -52,7 +52,7 @@ jobs:
     - name: Build Frontend Docker Image
       if: success()
       run: |
-        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/japan-house-prediction-frontend:latest -f frontend/Dockerfile .
+        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/japan-house-prediction-frontend:latest .
      
      # Push Frontend Docker Image
     - name: Push Frontend Docker Image
@@ -60,19 +60,7 @@ jobs:
       run: |
         docker push ${{ secrets.DOCKER_HUB_USERNAME }}/japan-house-prediction-frontend:latest
     
-    # Build Backend Docker Image 
-    - name: Build Backend Docker Image
-      if: success()
-      run: |
-        docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/japan-house-prediction-backend:latest -f fast_api/Dockerfile fast_api
     
-    # Push Backend Docker Image
-    - name: Push Backend Docker Image
-      if: success()
-      run: |
-        docker push ${{ secrets.DOCKER_HUB_USERNAME }}/japan-house-prediction-backend:latest
-
-
 
 
 

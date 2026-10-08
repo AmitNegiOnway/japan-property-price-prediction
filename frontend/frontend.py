@@ -24,7 +24,9 @@ st.set_page_config(
 # FastAPI Configuration
 # ============================================================
 
-API_URL = "http://host.docker.internal:8000/predict_house_price"
+API_URL = "https://konbini-chatbot-fastapi.onrender.com/House_Prediction"
+
+
 
 
 # ============================================================
